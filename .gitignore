@@ -1,0 +1,63 @@
+# ===== #
+# Unity #
+# ===== #
+Temp/
+Library/
+ProjectSettings/
+Assets/9_Packages/
+Assets/Editor/
+Assets/Standard Assets
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============ #
+# Binary files #
+# ============ #
+*.unity
+*.fbx
+*.mat
+*.png
+*.jpg
+*.wav
+*.meta
+*.prefab
+*.anim
+*.controller
+
+# ================= #
+# Generated project #
+# ================= #
+*.exe
+RocheGuyon_Data/
+*.pdb
+
+# ================ #
+# Authorized files #
+# ================ #
+!**/*.txt
+!**/*.cs
+!.gitignore

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languesDisponibles>
+	<langue code="fr" nom="Français" />
+	<langue code="en" nom="English" />
+	<langueParDefaut code="fr"/>
+</languesDisponibles>

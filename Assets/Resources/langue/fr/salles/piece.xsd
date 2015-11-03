@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- definition of simple elements -->
+	<xs:element name="desc" type="xs:string" />
+	<xs:element name="titre" type="xs:string" />
+	<xs:element name="description" type="xs:string" />
+	<!-- end of definition-->
+
+
+	<!-- definition of attributes -->
+	<xs:attribute name="ref" type="xs:string" />
+	<xs:attribute name="idAcces" type="xs:string" />
+	<xs:attribute name="nom" type="xs:string" />
+	<!-- end of definition-->
+
+
+	<!-- definition of complex elements -->
+	<xs:element name="acces">
+		<xs:complexType>
+			<xs:attribute ref="idAcces" />
+			<xs:attribute ref="nom" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sallesAdjacentes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="acces" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="objet">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="titre" />
+				<xs:element ref="description" />
+			</xs:sequence>
+			<xs:attribute ref="ref"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- end of definition-->
+
+
+	<!-- Whole document definition -->
+	<xs:element name="salle">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="desc" />
+				<xs:element ref="objet" maxOccurs="unbounded" />
+				<xs:element ref="sallesAdjacentes" />
+			</xs:sequence>
+			<xs:attribute ref="nom" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

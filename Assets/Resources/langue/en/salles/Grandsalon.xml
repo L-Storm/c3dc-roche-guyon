@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<salle nom="GrandSalon">
+	<desc>Room's description</desc>
+	<objet ref="TAP1">
+		<titre>The crowning of Esther</titre>
+		<description>
+			Assuérus fall for the spell of Esther. He crowns her. She so becomes queen of Persia. However the king ignores that she is Jewish. Mardochée refuses their origin to be revealed. Thanks to his niece, Mardochée becomes powerful to Assuérus' eyes. Mardochée having heard that some plotted against the king, he warns Assuérus who so avoids a certain death. However Haman, the grand vizier, estimates badly the growing importance which takes the newcomer.
+		</description>
+	</objet>
+	<objet ref="TAP2">
+		<titre>Haman's condemnation</titre>
+		<description>
+			In honor of her uncle, Esther gives a second feast. She reveals her Jewish origins to Assuérus. She also admits the treatment Haman reserved them. The latter begs Esther to save him. But Assuérus seeing the scene believes that Haman attacks Esther and condemns him to be hung.
+		</description>
+	</objet>
+	<objet ref="TAP3">
+		<titre>Mardochée's disdain</titre>
+		<description>
+			According to the will of Assuérus, everybody had to prostrate himself before Haman his great vizier. Only Mardochée refuses, exciting by its "disdain" the susceptibility of the grand vizier. However Haman learns that Esther and her uncle are Jewish. He decides to obtain from Assuérus the elimination of all the Jews of the kingdom.
+		</description>
+	</objet>
+	<objet ref="TAP4">
+		<titre>The Toilette of Esther</titre>
+		<description>
+			Assuérus, king of Persia, reject his wife Vasthi. She had shown herself arrogant and disobedient towards him. To find a wife, he orders to look throughout his kingdom the one who can become his queen. Mardochée, leader of the Jewish community, took care of his orphan niece, Esther. He knows her beauty and persuades her to present herself at Assuérus. Esther then has to get ready to be introduced to the king
+		</description>
+	</objet>
+	<objet ref="CHAISE">
+		<titre>Arm chair</titre>
+		<description>No description available for the moment</description>
+	</objet>
+	<sallesAdjacentes>
+		<acces idAcces="1" nom="Library" />
+		<acces idAcces="2" nom="Another room" />
+	</sallesAdjacentes>
+</salle>

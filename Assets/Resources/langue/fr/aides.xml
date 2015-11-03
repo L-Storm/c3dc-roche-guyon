@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aides>
+	<!-- Traduction des boutons Aide, Inspection et Selection de langue  -->
+	<boutons>
+		<aide>Aide</aide>
+		<inspecter>Inspecter</inspecter>
+		<langue>Changer de langue</langue>
+	</boutons>
+
+	<!-- Traduction des textes de l'aide en mode exploration -->
+	<exploration>
+		<croixDirectionnelle>Se déplacer</croixDirectionnelle>
+		<joystick>Orienter la vue</joystick>
+	</exploration>
+
+	<!-- Traduction des textes de l'aide en mode inspection -->
+	<inspecteur>
+		<!-- Déplacement -->
+		<haut>Haut</haut>
+		<bas>Bas</bas>
+		<gauche>Gauche</gauche>
+		<droite>Droite</droite>
+
+		<!-- Gestion du zoom -->
+		<zoomer>Zoomer</zoomer>
+		<dezoomer>Dézoomer</dezoomer>
+	</inspecteur>
+</aides>

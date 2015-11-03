@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- definition of restrictions -->
+	<xs:simpleType name="codeRestriction">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- end definition -->
+
+
+	<!-- definition of attributes -->
+	<xs:attribute name="code" type="codeRestriction"/>
+	<xs:attribute name="nom" type="xs:string" />
+	<!-- end definition -->
+
+
+	<!-- definition of complex elements -->
+	<xs:element name="langue">
+		<xs:complexType>
+			<xs:attribute ref="code" />
+			<xs:attribute ref="nom" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="langueParDefaut">
+		<xs:complexType>
+			<xs:attribute ref="code" />
+		</xs:complexType>
+	</xs:element>
+	<!-- end definition -->
+
+
+	<!-- Whole document definition -->
+	<xs:element name="languesDisponibles">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="langue" maxOccurs="unbounded" />
+				<xs:element ref="langueParDefaut" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema> 

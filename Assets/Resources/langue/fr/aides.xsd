@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!-- definition of complex elements -->
+	<xs:element name="boutons">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="aide" type="xs:string" />
+				<xs:element name="inspecter" type="xs:string" />
+				<xs:element name="langue" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="exploration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="croixDirectionnelle" type="xs:string" />
+				<xs:element name="joystick" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="inspecteur">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="haut" type="xs:string" />
+				<xs:element name="bas" type="xs:string" />
+				<xs:element name="gauche" type="xs:string" />
+				<xs:element name="droite" type="xs:string" />
+				<xs:element name="zoomer" type="xs:string" />
+				<xs:element name="dezoomer" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- end definition -->
+
+	<!-- Whole document definition -->
+	<xs:element name="aides">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="boutons" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="exploration" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="inspecteur" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

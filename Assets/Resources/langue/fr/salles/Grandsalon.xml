@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<salle nom="GrandSalon">
+	<desc>Description de la salle</desc>
+	<objet ref="TAP1">
+		<titre>Le Couronnement d’Esther</titre>
+		<description>
+			Assuérus tombe sous le charme d’Esther. Il la couronne. Elle devient ainsi reine de Perse. Cependant le roi ignore qu’elle est juive. Mardochée refuse que l’on connaisse leur origine. Grâce à sa nièce, Mardochée devient influent auprès d’Assuérus. Mardochée ayant entendu que quelques-uns complotaient contre le roi, il prévient Assuérus et ainsi évite au roi une mort certaine. Cependant Haman, le grand vizir, apprécie mal l’importance grandissante que prend le nouveau venu.
+		</description>
+	</objet>
+	<objet ref="TAP2">
+		<titre>La Condamnation d’Haman</titre>
+		<description>
+			En l’honneur de son oncle, Esther donne un second festin. Elle dévoile ses origines juives à Assuérus. Elle avoue également le traitement que leur réservait Haman. Ce dernier supplie Esther de le sauver. Mais Assuérus voyant la scène croit qu’Haman s’attaque à Esther et le condamne à être pendu.
+		</description>
+	</objet>
+	<objet ref="TAP3">
+		<titre>Le Dédain de Mardochée</titre>
+		<description>
+			Selon la volonté d’Assuérus, tout le monde devait se prosterner devant Haman son grand vizir. Seul Mardochée refuse, excitant par son "dédain" la susceptibilité du grand vizir. Cependant Haman apprend qu’Esther et son oncle sont juifs. Il décide d’obtenir d’Assuérus  l’élimination de tous les juifs du royaume.
+		</description>
+	</objet>
+	<objet ref="TAP4">
+		<titre>La Toilette d’Esther</titre>
+		<description>
+			Assuérus, roi de Perse, répudie son épouse Vasthi. Elle s’était montrée arrogante et désobéissante à son égard. Afin de retrouver une épouse, il fait rechercher dans tout son royaume celle qui pourra devenir reine. Mardochée, chef de la communauté juive, s’est occupé de sa nièce orpheline, Esther. Il connait sa beauté et la persuade de se présenter à Assuérus. Esther doit alors se préparer pour être introduite auprès du roi.
+		</description>
+	</objet>
+	<objet ref="CHAISE">
+		<titre>Fauteuil</titre>
+		<description>Pas de description disponible pour l'instant</description>
+	</objet>
+	<sallesAdjacentes>
+		<acces idAcces="1" nom="Bibliotheque" />
+		<acces idAcces="2" nom="Autre salle" />
+	</sallesAdjacentes>
+</salle>

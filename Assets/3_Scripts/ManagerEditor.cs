@@ -54,16 +54,18 @@ public class ManagerEditor : Editor {
             // Display Inspectable Objects
             foreach(GameObject obj in Target._dictionary.Keys){
                 GUILayout.BeginHorizontal();
-                GUILayout.Label("Object");
-                GameObject o = (GameObject)EditorGUILayout.ObjectField(obj, typeof(GameObject), true, GUILayout.Width(Screen.width / 4));
+                //GUILayout.Label("Object");
+                GUILayout.Space(2);
+                GameObject o = (GameObject)EditorGUILayout.ObjectField(obj, typeof(GameObject), true, GUILayout.Width(Screen.width/5));
                 if (!Target._dictionary.ContainsKey(o)){
                     Target._dictionary.Add(o, new Reference(null, Mode.Plane));
                 }
                 GUILayout.Label("Id");
-                GUILayout.TextField(obj.GetComponent<Parameters>()._id);
+                GUILayout.TextField(obj.GetComponent<Parameters>()._id, GUILayout.Width(Screen.width / 6));
                 //Target._dictionary[obj]._id = EditorGUILayout.TextField(Target._dictionary[obj]._id, GUILayout.Width(Screen.width / 4));
                 GUILayout.Label("Mode");
-                GUILayout.TextField(obj.GetComponent<Parameters>()._mode.ToString());
+                GUILayout.TextField(obj.GetComponent<Parameters>()._mode.ToString(),GUILayout.Width(Screen.width/4));
+                GUILayout.Space(20);
                 //Mode mod = Target._dictionary[obj]._mode;
                 //mod = (Mode) EditorGUILayout.EnumPopup(mod, GUILayout.Width(Screen.width/4));
                 //if (Target._dictionary[obj]._mode != mod){

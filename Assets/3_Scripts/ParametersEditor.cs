@@ -18,16 +18,19 @@ public class ParametersEditor : Editor {
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        //DrawDefaultInspector();
         GUILayout.BeginVertical();
+        GUILayout.Space(15);
         GUILayout.BeginHorizontal();
         GUILayout.Label("Identity : ");
-        Target._id = EditorGUILayout.TextField(Target._id, GUILayout.Width(Screen.width/3));
+        Target._id = EditorGUILayout.TextField(Target._id, GUILayout.Width(Screen.width /2));
+        GUILayout.Space(40);
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         GUILayout.Label("Mode : ");
         Mode mod = _target._mode;
-        mod = (Mode)EditorGUILayout.EnumPopup(mod, GUILayout.Width(Screen.width / 3));
+        mod = (Mode)EditorGUILayout.EnumPopup(mod, GUILayout.Width(Screen.width /2));
+        GUILayout.Space(40);
         if (Target._mode != mod)
         {
             Target._mode = mod;

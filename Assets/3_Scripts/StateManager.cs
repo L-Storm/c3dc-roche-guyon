@@ -11,63 +11,63 @@ using UnityEngine;
 /// </summary>
 public class StateManager : MonoBehaviour
 {
-	// States
-	public State EXPLORATOR;
-	public State INSPECTOR;
-	public State SLEEP;
+    // States
+    public State EXPLORATOR;
+    public State INSPECTOR;
+    public State SLEEP;
 
-	private int _countdown;
-	private State _state;
-	private static StateManager _userInstance;
+    private int _countdown;
+    private State _state;
+    private static StateManager _userInstance;
 
-	// Constructor
-	private StateManager() {}
+    // Constructor
+    private StateManager() {}
 
-	// Single instance of StateManager
-	public static StateManager Instance
-	{
-		get
-		{
-			if (_userInstance == null)
-			{
-				_userInstance = GameObject.FindObjectOfType(typeof(StateManager)) as StateManager;
-			}
-			return _userInstance;
-		}
-	}
+    // Single instance of StateManager
+    public static StateManager Instance
+    {
+        get
+        {
+            if (_userInstance == null)
+            {
+                _userInstance = GameObject.FindObjectOfType(typeof(StateManager)) as StateManager;
+            }
+            return _userInstance;
+        }
+    }
 
-	public void Start() 
-	{
-		EXPLORATOR = new Explorator();
-		INSPECTOR = new Inspector();
-		SLEEP = new Sleep();
+    public void Start() 
+    {
+        EXPLORATOR = new Explorator();
+        INSPECTOR = new Inspector();
+        SLEEP = new Sleep();
 
-		_state = Instance.EXPLORATOR;
-	}
+        _state = Instance.EXPLORATOR;
+    }
 
-	public void Update()
-	{
-		if (Input.GetKeyDown("i")) 
-		{
-			_state.trigger();
-		}
-		_state.behave();
-	}
+    public void Update()
+    {
+        if (Input.GetKeyDown("i")) 
+        {
+            _state.trigger();
+        }
+        _state.behave();
+    }
 
-	public void trigger()
-	{
-		_state.trigger();
-	}
+    public void trigger()
+    {
+        _state.trigger();
+    }
 
-	public void timeout()
-	{
-		_state.timeout();
-	}
+    public void timeout()
+    {
+        _state.timeout();
+    }
 
-	public void setState(State state)
-	{
-		_state = state;
-	}
+    public void setState(State state)
+    {
+        _state = state;
+    }
 
 }
 
@@ -76,33 +76,33 @@ public class StateManager : MonoBehaviour
 /// </summary>
 public abstract class State 
 {
-	// Attributes
-	protected StateManager _user;
+    // Attributes
+    protected StateManager _user;
 
-	// Constructor
-	public State()
-	{
-		_user = StateManager.Instance;
-	}
+    // Constructor
+    public State()
+    {
+        _user = StateManager.Instance;
+    }
 
-	/// <summary>
-	/// Trigger the state change.
-	/// </summary>
-	public abstract void trigger();
+    /// <summary>
+    /// Trigger the state change.
+    /// </summary>
+    public abstract void trigger();
 
-	/// <summary>
-	/// What happens when the state is activated.
-	/// </summary>
-	public abstract void behave();
+    /// <summary>
+    /// What happens when the state is activated.
+    /// </summary>
+    public abstract void behave();
 
-	/// <summary>
-	/// What happens when the timer reaches 0 (used to trigger the Sleep mode).
-	/// </summary>
-	public void timeout()
-	{
-		//TODO: define Sleep mode behaviour
-		Debug.Log("Sleep mode activated");
-		_user.setState(_user.SLEEP);
-	}
+    /// <summary>
+    /// What happens when the timer reaches 0 (used to trigger the Sleep mode).
+    /// </summary>
+    public void timeout()
+    {
+        //TODO: define Sleep mode behaviour
+        Debug.Log("Sleep mode activated");
+        _user.setState(_user.SLEEP);
+    }
 
 }

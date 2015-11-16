@@ -68,7 +68,7 @@ public class Panels : MonoBehaviour
 		setText(_languagePanel, "TextLanguages", "explorator", "langue");
 
 		Transform f = _languagePanel.transform.Find("Panel/Flag");
-    Rect rec = f.GetComponent<RectTransform>().rect;
+    	Rect rec = f.GetComponent<RectTransform>().rect;
 		Texture2D tex = _db.GetFlag();
 		Vector2 s = new Vector2(tex.width, tex.height);
 		f.GetComponent<Image>().sprite =
@@ -101,7 +101,7 @@ public class Panels : MonoBehaviour
 		_languagePanel.SetActive(!_languagePanel.activeSelf);
 		_helpPanel.SetActive(false);
 		_inspectorHelp.SetActive(false);
-		//_mvtCam.enabled = !isPanelActive(); // disabling camera movement
+		_mvtCam.enabled = !isPanelActive(); // disabling camera movement
 
 		if (_languagePanel.activeSelf)
 		{

@@ -54,17 +54,12 @@ public class StateManager : MonoBehaviour
         _state.behave();
     }
 
-    public void trigger()
+    public void OnGUI()
     {
-        _state.trigger();
+        _state.GUI();
     }
 
-    public void timeout()
-    {
-        _state.timeout();
-    }
-
-    public void setState(State state)
+    public void SetState(State state)
     {
         _state = state;
     }
@@ -96,13 +91,18 @@ public abstract class State
     public abstract void behave();
 
     /// <summary>
+    /// Showing whatever the state needs to show.
+    /// </summary>
+    public abstract void GUI();
+
+    /// <summary>
     /// What happens when the timer reaches 0 (used to trigger the Sleep mode).
     /// </summary>
     public void timeout()
     {
         //TODO: define Sleep mode behaviour
         Debug.Log("Sleep mode activated");
-        _user.setState(_user.SLEEP);
+        _user.SetState(_user.SLEEP);
     }
 
 }

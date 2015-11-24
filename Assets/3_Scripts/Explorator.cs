@@ -16,12 +16,17 @@ public class Explorator : State
     {
         // TODO: define Explorator mode behaviour
         Debug.Log("Launching Inspector mode");
-        _user.setState(_user.INSPECTOR);
+        _user.SetState(_user.INSPECTOR);
     }
 
     public override void behave()
     {
         Debug.Log("I'm the Explorator mode!");
+    }
+
+    public override void GUI()
+    {
+
     }
 
 }

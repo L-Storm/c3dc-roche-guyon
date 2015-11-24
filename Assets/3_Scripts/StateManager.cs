@@ -59,7 +59,7 @@ public class StateManager : MonoBehaviour
         _state.GUI();
     }
 
-    public void setState(State state)
+    public void SetState(State state)
     {
         _state = state;
     }
@@ -102,7 +102,7 @@ public abstract class State
     {
         //TODO: define Sleep mode behaviour
         Debug.Log("Sleep mode activated");
-        _user.setState(_user.SLEEP);
+        _user.SetState(_user.SLEEP);
     }
 
 }

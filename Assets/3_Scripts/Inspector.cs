@@ -15,7 +15,7 @@ public class Inspector : State
     {
         // TODO: define Inspector mode behaviour
         Debug.Log("Launching Explorator mode");
-        _user.setState(_user.EXPLORATOR);
+        _user.SetState(_user.EXPLORATOR);
     }
 
     public override void behave()

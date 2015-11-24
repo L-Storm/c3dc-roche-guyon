@@ -54,6 +54,11 @@ public class StateManager : MonoBehaviour
         _state.behave();
     }
 
+    public void OnGUI()
+    {
+        _state.GUI();
+    }
+
     public void trigger()
     {
         _state.trigger();

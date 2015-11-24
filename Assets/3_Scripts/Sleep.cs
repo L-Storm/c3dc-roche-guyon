@@ -15,7 +15,7 @@ public class Sleep : State
     {
         // Nothing else to add!
         Debug.Log("Back to Explorator mode");
-        _user.setState(_user.EXPLORATOR);
+        _user.SetState(_user.EXPLORATOR);
     }
 
     public new void timeout()
@@ -26,5 +26,10 @@ public class Sleep : State
     public override void behave()
     {
         Debug.Log("I'm the Sleep mode!");
+    }
+
+    public override void GUI()
+    {
+
     }
 }

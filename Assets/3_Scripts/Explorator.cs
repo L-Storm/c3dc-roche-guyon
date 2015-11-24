@@ -20,7 +20,7 @@ public class Explorator : State
     {
         // TODO: define Explorator mode behaviour
         Debug.Log("Launching Inspector mode");
-        _user.setState(_user.INSPECTOR);
+        _user.SetState(_user.INSPECTOR);
     }
 
     private GameObject catchObject()
@@ -62,5 +62,10 @@ public class Explorator : State
         {
             Debug.Log("Nothing is inspectable");
         }
+    }
+
+    public override void GUI()
+    {
+
     }
 }

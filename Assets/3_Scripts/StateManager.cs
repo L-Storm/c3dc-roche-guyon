@@ -96,6 +96,11 @@ public abstract class State
     public abstract void behave();
 
     /// <summary>
+    /// Showing whatever the state needs to show.
+    /// </summary>
+    public abstract void GUI();
+
+    /// <summary>
     /// What happens when the timer reaches 0 (used to trigger the Sleep mode).
     /// </summary>
     public void timeout()

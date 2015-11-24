@@ -24,4 +24,9 @@ public class Explorator : State
         Debug.Log("I'm the Explorator mode!");
     }
 
+    public override void GUI()
+    {
+
+    }
+
 }

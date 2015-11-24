@@ -27,4 +27,9 @@ public class Sleep : State
     {
         Debug.Log("I'm the Sleep mode!");
     }
+
+    public override void GUI()
+    {
+
+    }
 }

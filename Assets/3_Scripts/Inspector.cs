@@ -23,4 +23,8 @@ public class Inspector : State
         Debug.Log("I'm the Inspector mode!");
     }
 
+    public override void GUI()
+    {
+
+    }
 }

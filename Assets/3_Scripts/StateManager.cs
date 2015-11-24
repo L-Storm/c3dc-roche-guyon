@@ -59,16 +59,6 @@ public class StateManager : MonoBehaviour
         _state.GUI();
     }
 
-    public void trigger()
-    {
-        _state.trigger();
-    }
-
-    public void timeout()
-    {
-        _state.timeout();
-    }
-
     public void setState(State state)
     {
         _state = state;

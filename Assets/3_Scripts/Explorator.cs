@@ -25,6 +25,10 @@ public class Explorator : State
         _user.SetState(_user.INSPECTOR);
     }
 
+    /// <summary>
+    /// Function using Raycast to return inspectable objects or null
+    /// </summary>
+    /// <returns>An inspectable objects or null if object is not inspectable</returns>
     private GameObject catchObject()
     {
         RaycastHit _hit;
@@ -43,6 +47,9 @@ public class Explorator : State
         }
     }
 
+    /// <summary>
+    /// Called in the update() of StateManager, detect interaction with objects 
+    /// </summary>
     public override void behave()
     {
         bool _catchObject = false;
@@ -62,7 +69,9 @@ public class Explorator : State
             _panel.SetActive(false);
         }
     }
-
+    /// <summary>
+    /// Function called by the StateManager to deal with the GUI
+    /// </summary>
     public override void GUI()
     {
         if (_panel.activeSelf)

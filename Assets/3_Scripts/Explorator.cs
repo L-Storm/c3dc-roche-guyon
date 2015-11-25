@@ -4,16 +4,18 @@
 /// Explorator state allows the player to movefreely around the room and to be notified whenever he is close to an inspectable object.
 /// </summary>
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class Explorator : State
 {
     private Transform _cam;
-
+    private GameObject _inspectableObject = null;
+    private GameObject _panel;
     // Constructor
     public Explorator() : base()
     {
         _cam = GameObject.Find("FPSController/FirstPersonCharacter").transform;
+        _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[1].gameObject;
     }
 
     public override void trigger()
@@ -27,11 +29,11 @@ public class Explorator : State
     {
         RaycastHit _hit;
 
-        Debug.DrawRay(_cam.position, _cam.transform.forward * 8, Color.black);
-        // Use a rayast to check if an inspectable object is faced by the camera
+        Debug.DrawRay(_cam.position, _cam.transform.forward * 5, Color.black);
+        // Use a raycast to check if an inspectable object is faced by the camera
 
-        int layerMask = 1 << LayerMask.NameToLayer("Inspectable");
-        if (Physics.Raycast(_cam.position, _cam.forward, out _hit, 10, layerMask))
+        int layerMask = 1 << LayerMask.NameToLayer("InspectableObjects");
+        if (Physics.Raycast(_cam.position, _cam.forward, out _hit, 5, layerMask))
         {
             return _hit.transform.gameObject;
         }
@@ -43,29 +45,30 @@ public class Explorator : State
 
     public override void behave()
     {
-        Debug.Log("I'm the Explorator mode!");
-
         bool _catchObject = false;
-        GameObject _inspectableObject = null;
 
         // On récupère le GameObject qui est à inspecter ou null
         _inspectableObject = catchObject();
         // On actualise le marqueur signifiant qu'un object peut être inspecter
         _catchObject = (_inspectableObject == null ? false : true);
 
-        if (_catchObject)
-		{
-            // The faced GO is inspectable, showing a popup
-            Debug.Log("An object is inspectable : " + _inspectableObject.name);
-        }
-        else
+        if (_catchObject && !_panel.activeSelf)
         {
-            Debug.Log("Nothing is inspectable");
+            // The faced GO is inspectable, showing a popup
+            _panel.SetActive(true);
+        }
+        if (!_catchObject)
+        {
+            _panel.SetActive(false);
         }
     }
 
     public override void GUI()
     {
-
+        if (_panel.activeSelf)
+        {
+            string id = _inspectableObject.GetComponent<Parameters>()._id;
+            GameObject.Find("StatePanels/Explorator/ObjectName").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":title");
+        }
     }
 }

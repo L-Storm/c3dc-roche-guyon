@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -24,7 +23,7 @@ public class Manager : MonoBehaviour {
 	void Start () {
         // Catch all gameObjects on the layer InspectableObjects
         GameObject[] _objectsArray = FindGameObjectsWithLayer(LayerMask.NameToLayer("InspectableObjects"));
-        Debug.Log("Nombre d'object inspectable : " + _objectsArray.Length);
+        Debug.Log("Nombre d'object inspectables : " + _objectsArray.Length);
         
         // Add all these objects on the disctionary
         for (int i = 0; i< _objectsArray.Length; i++){
@@ -34,14 +33,12 @@ public class Manager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void Update () { }
 
     public GameObject[] FindGameObjectsWithLayer(LayerMask layer)
     {
         GameObject[] goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        var goList = new System.Collections.Generic.List<GameObject>();
+        var goList = new List<GameObject>();
         for (int i = 0; i< goArray.Length; i++)
         {
             if (goArray[i].layer == layer)

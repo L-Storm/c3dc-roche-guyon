@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
-using System.Collections.Generic;
 
 [CustomEditor(typeof(Manager))]
 public class ManagerEditor : Editor {

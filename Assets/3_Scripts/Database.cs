@@ -20,6 +20,7 @@ public class Database : MonoBehaviour
 
     // Event Handler
     public delegate void OnChangeEvent();
+    public event OnChangeEvent _OnChange;
 
 
     // Constructor

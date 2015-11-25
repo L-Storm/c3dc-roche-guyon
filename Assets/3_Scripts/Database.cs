@@ -20,7 +20,7 @@ public class Database : MonoBehaviour
 
     // Event Handler
     public delegate void OnChangeEvent();
-    public event OnChangeEvent _OnChange;
+
 
     // Constructor
     private Database() { }
@@ -75,7 +75,7 @@ public class Database : MonoBehaviour
 
             default:
                 throw new System.Exception(
-                            "ERROR : Database.SetLanguage only accepts \"NEXT\" or \"PREV\"");
+                "ERROR : Database.SetLanguage only accepts \"NEXT\" or \"PREV\"");
         }
         LoadHelp(LoadXml(GetLanguage().Item1 + "/aides.xml"));
         LoadRoom(LoadXml(GetLanguage().Item1 + "/salles/" + _activeRoom));
@@ -206,9 +206,8 @@ public class Database : MonoBehaviour
                 item.Attributes["ref"].Value,
                 new Tuple<string, string>(
                     item.FirstChild.InnerText,
-                    item.LastChild.InnerText
-                )
-            );
+                    item.LastChild.InnerText)
+                );
         }
 
         items = data.GetElementsByTagName("acces");

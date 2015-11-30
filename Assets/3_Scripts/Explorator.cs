@@ -78,6 +78,7 @@ public class Explorator : State
         {
             string id = _inspectableObject.GetComponent<Parameters>()._id;
             GameObject.Find("StatePanels/Explorator/ObjectName").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":title");
+            GameObject.Find("StatePanels/Explorator/InfoText").GetComponent<Text>().text = Database.Instance.GetData("explorator", "popup");
         }
     }
 }

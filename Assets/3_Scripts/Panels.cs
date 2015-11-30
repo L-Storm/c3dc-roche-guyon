@@ -83,17 +83,17 @@ public class Panels : MonoBehaviour
 	private void ManageHelp()
 	{
 		// NOTE: Inspector will certainly change with industrialization
-// 		if (Inspector.Instance.Activated)
-// 		{
-// 			_inspectorHelp.SetActive(!_inspectorHelp.activeSelf);
-// 			_helpPanel.SetActive(false);
-// 			_languagePanel.SetActive(false);
-// 		} else {
+ 		if (StateManager.Instance.GetState() == "Inspector")
+ 		{
+ 			_inspectorHelp.SetActive(!_inspectorHelp.activeSelf);
+ 			_helpPanel.SetActive(false);
+ 			_languagePanel.SetActive(false);
+ 		} else {
 			_helpPanel.SetActive(!_helpPanel.activeSelf);
 			_languagePanel.SetActive(false);
 			_inspectorHelp.SetActive(false);
 			_mvtCam.enabled = !isPanelActive(); // disabling camera movement
-// 		}
+ 		}
 	}
 
 	private void ManageLanguage()

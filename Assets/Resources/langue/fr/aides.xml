@@ -11,6 +11,7 @@
 	<exploration>
 		<croixDirectionnelle>Se déplacer</croixDirectionnelle>
 		<joystick>Orienter la vue</joystick>
+		<popup>Des informations sont disponibles !</popup>
 	</exploration>
 
 	<!-- Traduction des textes de l'aide en mode inspection -->

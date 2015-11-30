@@ -11,6 +11,7 @@
 	<exploration>
 		<croixDirectionnelle>Move around</croixDirectionnelle>
 		<joystick>Look around</joystick>
+		<popup>Informations are available !</popup>
 	</exploration>
 
 	<!-- Traduction des textes de l'aide en mode inspection -->

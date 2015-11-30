@@ -66,6 +66,10 @@ public class StateManager : MonoBehaviour
     {
         _state = state;
     }
+    public string GetState()
+    {
+        return _state.ToString();
+    }
 
 }
 

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class Explorator : State
 {
     private Transform _cam;
-    private GameObject _inspectableObject = null;
     private GameObject _panel;
+
     // Constructor
     public Explorator() : base()
     {
@@ -55,9 +55,9 @@ public class Explorator : State
         bool _catchObject = false;
 
         // On récupère le GameObject qui est à inspecter ou null
-        _inspectableObject = catchObject();
+        _user._inspectableObject = catchObject();
         // On actualise le marqueur signifiant qu'un object peut être inspecter
-        _catchObject = (_inspectableObject == null ? false : true);
+        _catchObject = (_user._inspectableObject == null ? false : true);
 
         if (_catchObject && !_panel.activeSelf)
         {
@@ -76,7 +76,7 @@ public class Explorator : State
     {
         if (_panel.activeSelf)
         {
-            string id = _inspectableObject.GetComponent<Parameters>()._id;
+            string id = _user._inspectableObject.GetComponent<Parameters>()._id;
             GameObject.Find("StatePanels/Explorator/ObjectName").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":title");
             GameObject.Find("StatePanels/Explorator/InfoText").GetComponent<Text>().text = Database.Instance.GetData("explorator", "popup");
         }

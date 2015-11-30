@@ -16,6 +16,9 @@ public class StateManager : MonoBehaviour
     public State INSPECTOR;
     public State SLEEP;
 
+    // Variable to pass inspectable object between states without much coupling.
+    public GameObject _inspectableObject = null;
+
     private int _countdown;
     private State _state;
     private static StateManager _userInstance;

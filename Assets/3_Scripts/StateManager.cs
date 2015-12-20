@@ -1,9 +1,10 @@
+
+using System.Collections.Generic;
 /// <summary>
 /// Author: Sonia SEDDIKI
 /// Copyright (c) Val'EISTI - 2015
 /// This script is the state manager. It describes the different states and how to switch between them.
 /// </summary>
-
 using UnityEngine;
 
 /// <summary>
@@ -18,10 +19,22 @@ public class StateManager : MonoBehaviour
 
     // Variable to pass inspectable object between states without much coupling.
     public GameObject _inspectableObject = null;
+    public Vector3 _inspectablePos;
+    public Quaternion _inspectableRot;
 
     private int _countdown;
     private State _state;
     private static StateManager _userInstance;
+
+    // Cameras : FirstPersonCharacters and the inspector one
+    public GameObject _camInspectorGO;
+    public Camera _camInspector;
+    public GameObject _fpsGO;
+    public Camera _fpsCam;
+
+    // Instectable objects are on a dictonary with its id and its mode
+    [HideInInspector]
+    public Dictionary<GameObject, Reference> _dictionary = new Dictionary<GameObject, Reference>();
 
     // Constructor
     private StateManager() {}
@@ -41,10 +54,32 @@ public class StateManager : MonoBehaviour
 
     public void Start() 
     {
+        Debug.Log("On Start");
+
+        // Catch all gameObjects on the layer InspectableObjects
+        GameObject[] _objectsArray = FindGameObjectsWithLayer(LayerMask.NameToLayer("InspectableObjects"));
+        Debug.Log("Nombre d'object inspectables : " + _objectsArray.Length);
+
+        // Add all these objects on the dictionary
+        for (int i = 0; i < _objectsArray.Length; i++)
+        {
+            _dictionary.Add(_objectsArray[i], _objectsArray[i].GetComponent<Parameters>()._ref);
+        }
+
+        // Initialize all cameras
+        _fpsCam = GameObject.Find("FPSController/FirstPersonCharacter").GetComponent<Camera>();
+        _fpsGO = GameObject.Find("FPSController/FirstPersonCharacter");
+        _camInspector = GameObject.Find("CameraInspector").GetComponent<Camera>();
+        _camInspectorGO = GameObject.Find("CameraInspector");
+        Debug.Log("Cameras initialized");
+
+
         EXPLORATOR = new Explorator();
         INSPECTOR = new Inspector();
         SLEEP = new Sleep();
 
+
+        //Initialize state to Explorator
         _state = Instance.EXPLORATOR;
     }
 
@@ -67,6 +102,21 @@ public class StateManager : MonoBehaviour
         _state = state;
     }
 
+    public GameObject[] FindGameObjectsWithLayer(LayerMask layer)
+    {
+        GameObject[] goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        var goList = new List<GameObject>();
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            if (goArray[i].layer == layer)
+            {
+                goList.Add(goArray[i]);
+            }
+        }
+        if (goList.Count == 0)
+            return null;
+        return goList.ToArray();
+    }
 }
 
 /// <summary>
@@ -108,4 +158,21 @@ public abstract class State
         _user.SetState(_user.SLEEP);
     }
 
+}
+
+public enum Mode { Rotate, Plane };
+
+[System.Serializable]
+public class Reference
+{
+
+    public string _id;
+    public Mode _mode;
+
+    public Reference(string id, Mode mode)
+    {
+        _id = id;
+        _mode = mode;
+    }
+    ~Reference() { }
 }

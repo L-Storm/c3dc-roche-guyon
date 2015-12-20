@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Author: Sonia SEDDIKI
+/// Author: Valentin FAMELART
 /// Copyright (c) Val'EISTI - 2015
 /// Explorator state allows the player to movefreely around the room and to be notified whenever he is close to an inspectable object.
 /// </summary>
@@ -16,12 +16,14 @@ public class Explorator : State
     {
         _cam = GameObject.Find("FPSController/FirstPersonCharacter").transform;
         _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[1].gameObject;
+        _panel.SetActive(false);
     }
 
     public override void trigger()
     {
         // TODO: define Explorator mode behaviour
         Debug.Log("Launching Inspector mode");
+        _panel.SetActive(false);
         _user.SetState(_user.INSPECTOR);
     }
 
@@ -37,7 +39,7 @@ public class Explorator : State
         // Use a raycast to check if an inspectable object is faced by the camera
 
         int layerMask = 1 << LayerMask.NameToLayer("InspectableObjects");
-        if (Physics.Raycast(_cam.position, _cam.forward, out _hit, 5, layerMask))
+        if (Physics.Raycast(_cam.position, _cam.forward, out _hit, 3f, layerMask))
         {
             return _hit.transform.gameObject;
         }
@@ -55,14 +57,18 @@ public class Explorator : State
         bool _catchObject = false;
 
         // On récupère le GameObject qui est à inspecter ou null
-        _user._inspectableObject = catchObject();
+        StateManager.Instance._inspectableObject = catchObject();
+        StateManager.Instance._inspectablePos = catchObject().transform.position;
+        StateManager.Instance._inspectableRot = catchObject().transform.rotation;
+
         // On actualise le marqueur signifiant qu'un object peut être inspecter
-        _catchObject = (_user._inspectableObject == null ? false : true);
+        _catchObject = (StateManager.Instance._inspectableObject == null ? false : true);
 
         if (_catchObject && !_panel.activeSelf)
         {
             // The faced GO is inspectable, showing a popup
             _panel.SetActive(true);
+            Debug.Log("Name catched");
         }
         if (!_catchObject)
         {

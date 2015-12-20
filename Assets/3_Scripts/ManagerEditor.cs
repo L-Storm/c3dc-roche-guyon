@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Manager))]
+[CustomEditor(typeof(StateManager))]
 public class ManagerEditor : Editor {
 
     // For a unique Manager script on the scene
-    public Manager _target = null;
-    protected Manager Target {
+    public StateManager _target = null;
+    protected StateManager Target {
         get {
             if (_target == null){
-                _target = target as Manager;
+                _target = target as StateManager;
                 //_objectsCount = _target._dictionary.Count;
             }
             return _target;

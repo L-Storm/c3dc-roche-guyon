@@ -52,17 +52,3 @@ public class Manager : MonoBehaviour {
     }
 }
 
-public enum Mode { Rotate, Plane };
-
-public class Reference {
-
-    public string _id;
-    public Mode _mode;
-
-    public Reference(string id, Mode mode) {
-        _id = id;
-        _mode = mode;
-    }
-    ~Reference() {}
-}
-

@@ -5,7 +5,7 @@ public class Parameters : MonoBehaviour {
 
     [HideInInspector] public string _id;
     [HideInInspector] public Mode _mode;
-    [HideInInspector] public Reference _ref = new Reference(null, Mode.Rotate);
+    [HideInInspector] public Reference _ref ;
 
 	// Use this for initialization
 	void Start () {

@@ -33,3 +33,85 @@ public class Sleep : State
 
     }
 }
+
+
+//public class Sleep : MonoBehaviour
+//{
+
+//    public float _timerSeconds;
+//    public GameObject _animatedCam;
+//    public static bool _sleep;
+//    public GameObject _sleepMessage;
+
+//    private float _currentTime;
+//    private Vector3 _animStartPosition;
+
+
+//    // Use this for initialization
+//    void Start()
+//    {
+//        _currentTime = _timerSeconds;
+//        _animStartPosition = _animatedCam.transform.position;
+//        _sleep = false;
+//        _sleepMessage.SetActive(false);
+//    }
+
+//    // Update is called once per frame
+//    void FixedUpdate()
+//    {
+
+//        // Restart the countdown
+//        if (Input.anyKey)
+//        {
+//            _currentTime = _timerSeconds;
+//            _animatedCam.GetComponent<Animation>().Stop();
+//            StopAllCoroutines();
+//            _sleepMessage.SetActive(false);
+//            _sleep = false;
+//        }
+//        // Decrease the timer
+//        if (!Input.anyKey && _currentTime > 0)
+//        {
+//            _currentTime -= Time.deltaTime;
+//        }
+//        // Start Sleep Mode
+//        if (_currentTime <= 0)
+//        {
+//            _sleep = true;
+//            _sleepMessage.SetActive(true);
+//            if (Inspector.Instance().Activated)
+//            {
+//                Inspector.Instance().RestoreExplorationMode();
+//                // Set manually the value to false because the only way to change the value in the inspector script is to press the "Inspecter" button.
+//                Inspector.Instance().Activated = false;
+//            }
+//            StartCoroutine(MoveThenAnimate());
+//        }
+//    }
+
+//    IEnumerator MoveToStart()
+//    {
+//        do
+//        {
+//            _animatedCam.transform.position = Vector3.Lerp(_animatedCam.transform.position, _animStartPosition, Time.deltaTime);
+//            yield return new WaitForSeconds(1);
+//        }
+//        while (Vector3.Distance(_animatedCam.transform.position, _animStartPosition) > 0.5f);
+//        yield return new WaitForSeconds(2);
+//    }
+
+//    IEnumerator PlayAnimation()
+//    {
+//        _animatedCam.GetComponent<Animation>().Play();
+//        yield return null;
+//    }
+
+//    IEnumerator MoveThenAnimate()
+//    {
+//        yield return StartCoroutine(MoveToStart());
+//        yield return StartCoroutine(PlayAnimation());
+//    }
+//}
+
+
+

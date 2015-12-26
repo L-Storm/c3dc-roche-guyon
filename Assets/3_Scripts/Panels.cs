@@ -83,17 +83,17 @@ public class Panels : MonoBehaviour
 	private void ManageHelp()
 	{
 		// NOTE: Inspector will certainly change with industrialization
-// 		if (Inspector.Instance.Activated)
-// 		{
-// 			_inspectorHelp.SetActive(!_inspectorHelp.activeSelf);
-// 			_helpPanel.SetActive(false);
-// 			_languagePanel.SetActive(false);
-// 		} else {
+ 		if (StateManager.Instance.getState() == "Inspector")
+ 		{
+            _inspectorHelp.SetActive(!_inspectorHelp.activeSelf);
+            _helpPanel.SetActive(false);
+            _languagePanel.SetActive(false);
+ 		} else {
 			_helpPanel.SetActive(!_helpPanel.activeSelf);
 			_languagePanel.SetActive(false);
 			_inspectorHelp.SetActive(false);
 			_mvtCam.enabled = !isPanelActive(); // disabling camera movement
-// 		}
+ 		}
 	}
 
 	private void ManageLanguage()
@@ -113,16 +113,16 @@ public class Panels : MonoBehaviour
 
 	private void ToggleArrows()
 	{
-		if (_db.GetLanguageIndex() == _db.getAvailableLanguages().Count - 1) {
+        if (_db.GetLanguageIndex() == _db.getAvailableLanguages().Count - 1) {
 			_rightArrow.SetActive(false);
 		} else {
-			_rightArrow.SetActive(true);
+            _rightArrow.SetActive(true);
 		}
 
-		if (_db.GetLanguageIndex() == 0) { 
-			_leftArrow.SetActive(false);
-		} else { 
-			_leftArrow.SetActive(true);
+		if (_db.GetLanguageIndex() == 0) {
+            _leftArrow.SetActive(false);
+		} else {
+            _leftArrow.SetActive(true);
 		}
 	}
 
@@ -145,13 +145,13 @@ public class Panels : MonoBehaviour
 	}
 
 
-	void Awake()
+	void Start()
 	{
 		_mvtCam = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
 		_db = Database.Instance;
-		_rightArrow = _languagePanel.transform.Find("Panel/FlecheD").gameObject;
-		_leftArrow  = _languagePanel.transform.Find("Panel/FlecheG").gameObject;
-		ToggleArrows();
+        _rightArrow = _languagePanel.transform.Find("Panel/FlecheD").gameObject;
+        _leftArrow  = _languagePanel.transform.Find("Panel/FlecheG").gameObject;
+        ToggleArrows();
 	}
 
 	public void Update()

@@ -5,6 +5,7 @@
 /// </summary>
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Inspector : State
 {
@@ -15,12 +16,22 @@ public class Inspector : State
     private GameObject _FPSController = GameObject.Find("FPSController");
     private Camera _cam = StateManager.Instance._camInspector;
 
+    private Vector3 _posRef;
+
+    private float _upSize;
+    private float _rightSize;
+
     private float distance = 0;
 
     private bool _initialized = false;
 
+    private GameObject _panel;
+
     // Constructor
-    public Inspector() : base() { }
+    public Inspector() : base()
+    {
+        _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[5].gameObject;
+    }
 
     public override void trigger()
     {
@@ -28,8 +39,8 @@ public class Inspector : State
         Debug.Log("Launching Explorator mode");
 
         // Reset the object position on the scene;
-        _obj.transform.position = StateManager.Instance._inspectablePos;
-        _obj.transform.rotation = StateManager.Instance._inspectableRot;
+        _obj.transform.position = _user._inspectablePos;
+        _obj.transform.rotation = _user._inspectableRot;
 
         // Reset the Inspector mode
         _initialized = false;
@@ -38,15 +49,18 @@ public class Inspector : State
         _FPSController.SetActive(true);
         _fps.SetActive(true);
         _camGo.SetActive(false);
-
+        // Deactivate the panel
+        _panel.SetActive(false);
         // Change the mode
         _user.SetState(_user.EXPLORATOR);
     }
 
     public override void behave()
     {
+        // Activate the panel
+        _panel.SetActive(true);
         Debug.Log("I'm the Inspector mode!");
-        _obj = StateManager.Instance._inspectableObject;
+        _obj = _user._inspectableObject;
 
         // Initialize Camerass
         if (!_initialized)
@@ -68,14 +82,16 @@ public class Inspector : State
             Zoom();
         }
 
-
-        Debug.Log(_user._dictionary[_obj]._mode.ToString());
-
     }
 
     public override void GUI()
     {
-
+        if (_panel.activeSelf)
+        {
+            string id = _user._inspectableObject.GetComponent<Parameters>()._id;
+            GameObject.Find("StatePanels/Inspector/Title").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":title");
+            GameObject.Find("StatePanels/Inspector/Description").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":desc");
+        }
     }
 
     /// <summary>
@@ -86,7 +102,7 @@ public class Inspector : State
     {
         // Rotation is only set around the up vector only
         float turnSpeed = 20;
-        _camGo.transform.LookAt(_obj.transform);
+        _camGo.transform.LookAt(_obj.transform );
 
         if (Input.GetAxis("Horizontal") == -1)
             _camGo.transform.RotateAround(_obj.transform.position, _obj.transform.up, turnSpeed * Time.deltaTime);
@@ -102,7 +118,8 @@ public class Inspector : State
     public void RotateCenter()
     {
         float turnSpeed = 20;
-        _camGo.transform.LookAt(_obj.transform);
+        //_camGo.transform.LookAt(_obj.transform);
+       
 
         if (Input.GetAxis("Vertical") == -1)
             _obj.transform.Rotate(-_camGo.transform.right, turnSpeed * Time.deltaTime, Space.World);
@@ -123,8 +140,21 @@ public class Inspector : State
     /// Camera translates along the horizontal and vertical axis of the plane. No rotation for the camera. </remarks>
     public void TranslatePlane()
     {
+        Vector3 diff =  _camGo.transform.position - _posRef;
+        float rightDistance = Vector3.Dot(diff, _camGo.transform.right) / Vector3.Magnitude(_camGo.transform.right);
+        float upDistance = Vector3.Dot(diff, _camGo.transform.up) / Vector3.Magnitude(_camGo.transform.up);
 
-        // TODO: define behaviour
+        if (Input.GetAxis("Vertical") == -1 && upDistance > -_upSize*0.25f)
+            _camGo.transform.position -= 0.02f*_obj.transform.forward;
+
+        if (Input.GetAxis("Vertical") == 1 && upDistance < _upSize * 0.25f)
+            _camGo.transform.position += 0.02f * _obj.transform.forward;
+
+        if (Input.GetAxis("Horizontal") == -1 && rightDistance > -_rightSize * 0.25f)
+            _camGo.transform.position -= 0.02f * _obj.transform.right;
+
+        if (Input.GetAxis("Horizontal") == 1 && rightDistance < _rightSize * 0.25f)
+            _camGo.transform.position += 0.02f * _obj.transform.right;
     }
 
     /// <summary>
@@ -141,29 +171,28 @@ public class Inspector : State
     {
         // Local variables
         Bounds bound = CalculateBound(obj);
-                
+                        
         float fovRadHalf = _cam.fieldOfView * (Mathf.PI / 360);
                
         // Activate the Inspector Camera
         _fps.SetActive(false);
         _FPSController.SetActive(false);
         _camGo.SetActive(true);
-
-        // Set distance between Camera and Object.
-
         
+        // Prepare for plane moves
         if (_user._dictionary[_obj]._mode == Mode.Plane)
         {
             // Set InspectorCamera ready for inspection
             distance = Mathf.Abs(bound.extents.x / (4 * Mathf.Tan(fovRadHalf)));
             _camGo.transform.forward = -_obj.transform.up;
             _camGo.transform.position = _obj.transform.up * distance + _obj.transform.position;
-            
+            _upSize = bound.extents.z; ;
+            _rightSize = bound.extents.x;
         }
 
+        // Prepare for a rotation
         if (_user._dictionary[_obj]._mode == Mode.Rotate)
         {
-
             // Set InspectorCamera ready for inspection
             _obj.transform.position += _obj.transform.up ;
             distance = 1.2f * Mathf.Abs(bound.extents.y / Mathf.Tan(fovRadHalf));
@@ -171,26 +200,29 @@ public class Inspector : State
             Vector3 direction = Vector3.Normalize(_camGo.transform.position - _obj.transform.position);
             _camGo.transform.position = _obj.transform.position + distance * direction;
             _camGo.transform.forward = direction;
+            _camGo.transform.LookAt(_obj.transform.position + 0.30f * _obj.transform.right);
         }
+
+        _posRef = _camGo.transform.position;
 
     }
 
     public void Zoom()
     {
-        float fov = _cam.fieldOfView;
+        // Field of View (degree)
+        float fov = _cam.fieldOfView ;
 
         // Zoom out
-        if ((Input.GetAxis("Mouse Y") == -1) && fov < 100)
+        if ((Input.GetAxis("Mouse Y") == -1) && fov < 60 )
         {
-            fov++;
+            _cam.fieldOfView++;
         }
         // Zoom in
-        if (Input.GetAxis("Mouse Y") == 1 && fov > 30)
+        if (Input.GetAxis("Mouse Y") == 1 && fov > 15)
         {
-            fov--;
+            _cam.fieldOfView--;
         }
 
-        _cam.fieldOfView = fov;
     }
 
     public Bounds CalculateBound(GameObject obj) {

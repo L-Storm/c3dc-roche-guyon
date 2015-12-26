@@ -16,7 +16,7 @@ public class Explorator : State
     {
         _cam = GameObject.Find("FPSController/FirstPersonCharacter").transform;
         _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[1].gameObject;
-        _panel.SetActive(false);
+        Debug.Log("Panel initialized");
     }
 
     public override void trigger()
@@ -54,23 +54,20 @@ public class Explorator : State
     /// </summary>
     public override void behave()
     {
-        bool _catchObject = false;
+        // Catched the gameobject
+        _user._inspectableObject = catchObject();
+        if (_user._inspectableObject != null) {
+            _user._inspectablePos = _user._inspectableObject.transform.position;
+            _user._inspectableRot = _user._inspectableObject.transform.rotation;
+        }
+        
 
-        // On récupère le GameObject qui est à inspecter ou null
-        StateManager.Instance._inspectableObject = catchObject();
-        StateManager.Instance._inspectablePos = catchObject().transform.position;
-        StateManager.Instance._inspectableRot = catchObject().transform.rotation;
-
-        // On actualise le marqueur signifiant qu'un object peut être inspecter
-        _catchObject = (StateManager.Instance._inspectableObject == null ? false : true);
-
-        if (_catchObject && !_panel.activeSelf)
+       if (_user._inspectableObject != null && !_panel.activeSelf)
         {
             // The faced GO is inspectable, showing a popup
             _panel.SetActive(true);
-            Debug.Log("Name catched");
         }
-        if (!_catchObject)
+        if (_user._inspectableObject == null)
         {
             _panel.SetActive(false);
         }

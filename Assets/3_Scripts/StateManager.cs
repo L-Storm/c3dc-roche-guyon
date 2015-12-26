@@ -85,7 +85,7 @@ public class StateManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("i")) 
+        if (Input.GetKeyDown("i") && _inspectableObject != null) 
         {
             _state.trigger();
         }
@@ -100,6 +100,11 @@ public class StateManager : MonoBehaviour
     public void SetState(State state)
     {
         _state = state;
+    }
+
+    public string getState()
+    {
+        return _state.ToString();
     }
 
     public GameObject[] FindGameObjectsWithLayer(LayerMask layer)

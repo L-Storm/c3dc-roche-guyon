@@ -22,7 +22,6 @@ public class StateManager : MonoBehaviour
     public Vector3 _inspectablePos;
     public Quaternion _inspectableRot;
 
-    private int _countdown;
     private State _state;
     private static StateManager _userInstance;
 
@@ -31,6 +30,11 @@ public class StateManager : MonoBehaviour
     public Camera _camInspector;
     public GameObject _fpsGO;
     public Camera _fpsCam;
+    public GameObject _fpsController;
+
+    private float _countdown = 5;
+    private float _currentTime;
+    private Animation _anim;
 
     // Instectable objects are on a dictonary with its id and its mode
     [HideInInspector]
@@ -38,6 +42,27 @@ public class StateManager : MonoBehaviour
 
     // Constructor
     private StateManager() {}
+
+    // Accessors
+    public float Countdown
+    {
+        get{
+            return _countdown;
+        }
+    }
+    public float CurrentTime
+    {
+        get{
+            return _currentTime;
+        }
+        set {
+            _currentTime = value;
+        }
+    }
+    public State CurrentState
+    {
+        get { return _state; }
+    }
 
     // Single instance of StateManager
     public static StateManager Instance
@@ -71,6 +96,7 @@ public class StateManager : MonoBehaviour
         _fpsGO = GameObject.Find("FPSController/FirstPersonCharacter");
         _camInspector = GameObject.Find("CameraInspector").GetComponent<Camera>();
         _camInspectorGO = GameObject.Find("CameraInspector");
+        _fpsController = GameObject.Find("FPSController");
         Debug.Log("Cameras initialized");
 
 
@@ -81,15 +107,19 @@ public class StateManager : MonoBehaviour
 
         //Initialize state to Explorator
         _state = Instance.EXPLORATOR;
+
+        // Initialize time
+        _currentTime = _countdown;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        if (Input.GetKeyDown("i") && _inspectableObject != null) 
+        if (Input.GetKeyDown("i") || (Input.anyKeyDown && _state == Instance.SLEEP))
         {
             _state.trigger();
         }
         _state.behave();
+        _state.timeout();
     }
 
     public void OnGUI()
@@ -158,9 +188,31 @@ public abstract class State
     /// </summary>
     public void timeout()
     {
-        //TODO: define Sleep mode behaviour
-        Debug.Log("Sleep mode activated");
-        _user.SetState(_user.SLEEP);
+        // Restart the countdown
+        if (Input.anyKey)
+        {
+            _user.CurrentTime = _user.Countdown;
+            // _sleepMessage.SetActive(false);
+        }
+
+        // Decrease the timer
+        if (!Input.anyKey && _user.CurrentTime > 0)
+        {
+            _user.CurrentTime -= Time.deltaTime;
+        }
+
+        // Trigger Sleep Mode
+        if (_user.CurrentTime <= 0)
+        {
+            if (_user.CurrentState == StateManager.Instance.INSPECTOR)
+            {
+                _user._camInspectorGO.SetActive(false);
+                _user._fpsController.SetActive(true);
+            }
+            Debug.Log("Entering Sleep Mode...");
+            _user.SetState(_user.SLEEP);
+        }
+
     }
 
 }

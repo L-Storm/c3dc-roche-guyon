@@ -32,7 +32,7 @@ public class StateManager : MonoBehaviour
     public Camera _fpsCam;
     public GameObject _fpsController;
 
-    private float _countdown = 5;
+    private float _countdown = 10;
     private float _currentTime;
     private Animation _anim;
 
@@ -112,9 +112,9 @@ public class StateManager : MonoBehaviour
         _currentTime = _countdown;
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
-        if (Input.GetKeyDown("i") || (Input.anyKeyDown && _state == Instance.SLEEP))
+        if (Input.GetKeyDown("i"))
         {
             _state.trigger();
         }
@@ -161,6 +161,7 @@ public abstract class State
 {
     // Attributes
     protected StateManager _user;
+    protected GameObject _panel;
 
     // Constructor
     public State()
@@ -192,7 +193,6 @@ public abstract class State
         if (Input.anyKey)
         {
             _user.CurrentTime = _user.Countdown;
-            // _sleepMessage.SetActive(false);
         }
 
         // Decrease the timer
@@ -206,9 +206,16 @@ public abstract class State
         {
             if (_user.CurrentState == StateManager.Instance.INSPECTOR)
             {
-                _user._camInspectorGO.SetActive(false);
-                _user._fpsController.SetActive(true);
+                //_user._camInspectorGO.SetActive(false);
+                //_user._fpsGO.SetActive(true);
+                //_user._fpsController.SetActive(true);
+                //_panel.SetActive(false);
+                trigger();
             }
+            if (_user.CurrentState == StateManager.Instance.EXPLORATOR) {
+                _panel.SetActive(false);
+            }
+            
             Debug.Log("Entering Sleep Mode...");
             _user.SetState(_user.SLEEP);
         }

@@ -9,14 +9,13 @@ using UnityEngine.UI;
 public class Explorator : State
 {
     private Transform _cam;
-    private GameObject _panel;
 
     // Constructor
     public Explorator() : base()
     {
         _cam = GameObject.Find("FPSController/FirstPersonCharacter").transform;
         _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[1].gameObject;
-        Debug.Log("Panel initialized");
+        Debug.Log("Panel explorator initialized");
     }
 
     public override void trigger()

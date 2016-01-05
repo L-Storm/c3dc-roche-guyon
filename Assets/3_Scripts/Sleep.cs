@@ -9,10 +9,10 @@ using System;
 
 public class Sleep : State{
 
-    private GameObject _panel;
     // Constructor
     public Sleep() : base() {
-        _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[8].gameObject;
+        _panel = GameObject.Find("StatePanels").GetComponentsInChildren<RectTransform>(true)[8].gameObject;
+        Debug.Log("Panel sleep initialized" + _panel.ToString());
     }
 
     public override void trigger()
@@ -31,15 +31,16 @@ public class Sleep : State{
     public override void behave()
     {
         _panel.SetActive(true);
+        Debug.Log(_panel.ToString());
+        Debug.Log(_panel.activeSelf);
         _user._fpsController.GetComponent<Animation>().Play();
+        if (Input.anyKeyDown) {
+            trigger();
+        }
     }
 
     public override void GUI()
     {
-        //if (_panel.activeSelf)
-        //{
-        //    //GameObject.Find("StatePanels/Sleep/Text").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":title");
-        //    //GameObject.Find("StatePanels/Inspector/Description").GetComponent<Text>().text = Database.Instance.GetData("object", id + ":desc");
-        //}
+
     }
 }

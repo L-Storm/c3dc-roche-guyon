@@ -25,12 +25,12 @@ public class Inspector : State
 
     private bool _initialized = false;
 
-    private GameObject _panel;
 
     // Constructor
     public Inspector() : base()
     {
         _panel = GameObject.Find("StatePanels").GetComponentsInChildren<Transform>(true)[5].gameObject;
+        Debug.Log("Panel INSPECTOR initialized");
     }
 
     public override void trigger()
